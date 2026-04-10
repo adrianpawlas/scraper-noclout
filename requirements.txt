@@ -8,3 +8,5 @@ aiohttp
 asyncio
 sentencepiece
 protobuf
+beautifulsoup4
+lxml
