@@ -1,0 +1,690 @@
+Fri Apr 10 21:41:54 CEST 2026: Scraper completed
+2026-04-10 21:42:01 - Starting scraper...
+INFO:__main__:==================================================
+INFO:__main__:Starting Noclout Scraper
+INFO:__main__:==================================================
+INFO:__main__:Initializing embedding service...
+INFO:embeddings:Loading model google/siglip-base-patch16-384 on cpu
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-384/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-384/41aec1c83b32e0a6fca20ad88ba058aa5b5ea394/config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-384/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+Loading weights:   0%|          | 0/408 [00:00<?, ?it/s]Loading weights: 100%|██████████| 408/408 [00:00<00:00, 12445.01it/s]
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/google/siglip-base-patch16-384/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-384/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-384/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-384/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-384/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-384/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-384/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-384/41aec1c83b32e0a6fca20ad88ba058aa5b5ea394/preprocessor_config.json "HTTP/1.1 200 OK"
+The image processor of type `SiglipImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. 
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-384/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-384/resolve/main/preprocessor_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-384/41aec1c83b32e0a6fca20ad88ba058aa5b5ea394/preprocessor_config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-384/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-384/41aec1c83b32e0a6fca20ad88ba058aa5b5ea394/config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/google/siglip-base-patch16-384/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/siglip-base-patch16-384/41aec1c83b32e0a6fca20ad88ba058aa5b5ea394/tokenizer_config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/google/siglip-base-patch16-384/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/google/siglip-base-patch16-384/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+INFO:embeddings:Model loaded successfully
+INFO:__main__:Initializing Supabase client...
+INFO:supabase_client:Supabase client initialized
+INFO:__main__:Step 1: Collecting all product URLs...
+INFO:scraper:Loading collection page: https://noclout.fr/collections/tous-les-articles
+INFO:scraper:Found 12 unique product URLs so far
+INFO:scraper:Found 24 unique product URLs so far
+INFO:scraper:Found 36 unique product URLs so far
+INFO:scraper:Found 48 unique product URLs so far
+INFO:scraper:Found 62 unique product URLs so far
+INFO:scraper:Found 74 unique product URLs so far
+INFO:scraper:Found 86 unique product URLs so far
+INFO:scraper:Found 100 unique product URLs so far
+INFO:scraper:Found 101 unique product URLs so far
+INFO:scraper:Found 101 unique product URLs so far
+INFO:scraper:Found 101 unique product URLs so far
+INFO:scraper:Found 101 unique product URLs so far
+INFO:scraper:No more content to scroll - reached end of page
+INFO:scraper:Total collected: 101 product URLs
+INFO:__main__:Found 101 product URLs
+INFO:__main__:Step 2: Processing products in batches of 5...
+INFO:__main__:Processing batch 1: products 1-5
+INFO:__main__:Processing: https://noclout.fr/products/flamingo-waffle
+INFO:__main__:Processing: https://noclout.fr/products/pinky-link-sleeves
+INFO:__main__:Processing: https://noclout.fr/products/vantablack-zip-copy
+INFO:__main__:Processing: https://noclout.fr/products/glacial-rainjacket
+INFO:__main__:Processing: https://noclout.fr/products/darker-beanie
+INFO:scraper:Scraped: Pinky Link Sleeves - 43.99EUR
+/Users/adrianpawlas/Finds/Scrapers/scraper-noclout/main.py:110: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "created_at": datetime.utcnow().isoformat()
+INFO:__main__:Generating embeddings for: Pinky Link Sleeves
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Pinky Link Sleeves
+INFO:__main__:Uploaded: Pinky Link Sleeves
+INFO:scraper:Scraped: Rainforest Zip - 84.99EUR
+INFO:__main__:Generating embeddings for: Rainforest Zip
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Rainforest Zip
+INFO:__main__:Uploaded: Rainforest Zip
+INFO:scraper:Scraped: Darker Beanie - 34.99EUR
+INFO:__main__:Generating embeddings for: Darker Beanie
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Darker Beanie
+INFO:__main__:Uploaded: Darker Beanie
+INFO:scraper:Scraped: Flamingo Waffle - 49.99EUR
+INFO:__main__:Generating embeddings for: Flamingo Waffle
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Flamingo Waffle
+INFO:__main__:Uploaded: Flamingo Waffle
+INFO:scraper:Scraped: Glacial Rainjacket - 94.99EUR
+INFO:__main__:Generating embeddings for: Glacial Rainjacket
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Glacial Rainjacket
+INFO:__main__:Uploaded: Glacial Rainjacket
+INFO:__main__:Processing batch 2: products 6-10
+INFO:__main__:Processing: https://noclout.fr/products/og-zip-copy
+INFO:__main__:Processing: https://noclout.fr/products/lugia-atomic-jersey
+INFO:__main__:Processing: https://noclout.fr/products/hayai-brown-tee
+INFO:__main__:Processing: https://noclout.fr/products/ebene-set-belt
+INFO:__main__:Processing: https://noclout.fr/products/chromatic-blue-tee
+INFO:scraper:Scraped: Brown & Blue Set - Belt - 59.99EUR
+INFO:__main__:Generating embeddings for: Brown & Blue Set - Belt
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Brown & Blue Set - Belt
+INFO:__main__:Uploaded: Brown & Blue Set - Belt
+INFO:scraper:Scraped: Chromatic Red Tee - 44.99EUR
+INFO:__main__:Generating embeddings for: Chromatic Red Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Chromatic Red Tee
+INFO:__main__:Uploaded: Chromatic Red Tee
+INFO:scraper:Scraped: Vantablack Zip - 84.99EUR
+INFO:__main__:Generating embeddings for: Vantablack Zip
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Vantablack Zip
+INFO:__main__:Uploaded: Vantablack Zip
+INFO:scraper:Scraped: Royal Tee - 44.99EUR
+INFO:__main__:Generating embeddings for: Royal Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Royal Tee
+INFO:__main__:Uploaded: Royal Tee
+INFO:scraper:Scraped: Skypiea Atomic Jersey - 23.99EUR
+INFO:__main__:Generating embeddings for: Skypiea Atomic Jersey
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Skypiea Atomic Jersey
+INFO:__main__:Uploaded: Skypiea Atomic Jersey
+INFO:__main__:Processing batch 3: products 11-15
+INFO:__main__:Processing: https://noclout.fr/products/pinky-knit
+INFO:__main__:Processing: https://noclout.fr/products/darker-knit
+INFO:__main__:Processing: https://noclout.fr/products/grey-tee
+INFO:__main__:Processing: https://noclout.fr/products/sky-tee
+INFO:__main__:Processing: https://noclout.fr/products/dark-link-sleeves
+INFO:scraper:Scraped: Artic Tee - 44.99EUR
+INFO:__main__:Generating embeddings for: Artic Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Artic Tee
+INFO:__main__:Uploaded: Artic Tee
+INFO:scraper:Scraped: Sky Tee - 35.99EUR
+INFO:__main__:Generating embeddings for: Sky Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Sky Tee
+INFO:__main__:Uploaded: Sky Tee
+INFO:scraper:Scraped: Darker Knit - 89.99EUR
+INFO:__main__:Generating embeddings for: Darker Knit
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Darker Knit
+INFO:__main__:Uploaded: Darker Knit
+INFO:scraper:Scraped: Dark Link Sleeves - 43.99EUR
+INFO:__main__:Generating embeddings for: Dark Link Sleeves
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Dark Link Sleeves
+INFO:__main__:Uploaded: Dark Link Sleeves
+INFO:scraper:Scraped: Flamingo Knit - 89.99EUR
+INFO:__main__:Generating embeddings for: Flamingo Knit
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Flamingo Knit
+INFO:__main__:Uploaded: Flamingo Knit
+INFO:__main__:Processing batch 4: products 16-20
+INFO:__main__:Processing: https://noclout.fr/products/cream-tee
+INFO:__main__:Processing: https://noclout.fr/products/lavender-swimming-short-v2
+INFO:__main__:Processing: https://noclout.fr/products/lilas-waffle
+INFO:__main__:Processing: https://noclout.fr/products/sky-waffle
+INFO:__main__:Processing: https://noclout.fr/products/polar-link-jort-1
+INFO:scraper:Scraped: Armada Tee - 44.99EUR
+INFO:__main__:Generating embeddings for: Armada Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Armada Tee
+INFO:__main__:Uploaded: Armada Tee
+INFO:scraper:Scraped: Sky Waffle - 39.99EUR
+INFO:__main__:Generating embeddings for: Sky Waffle
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Sky Waffle
+INFO:__main__:Uploaded: Sky Waffle
+INFO:scraper:Scraped: Polar Link Jort - 69.99EUR
+INFO:__main__:Generating embeddings for: Polar Link Jort
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Polar Link Jort
+INFO:__main__:Uploaded: Polar Link Jort
+INFO:scraper:Scraped: Lilas Waffle - 39.99EUR
+INFO:__main__:Generating embeddings for: Lilas Waffle
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Lilas Waffle
+INFO:__main__:Uploaded: Lilas Waffle
+INFO:scraper:Scraped: Lavender Swim Short V2 - 34.99EUR
+INFO:__main__:Generating embeddings for: Lavender Swim Short V2
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Lavender Swim Short V2
+INFO:__main__:Uploaded: Lavender Swim Short V2
+INFO:__main__:Processing batch 5: products 21-25
+INFO:__main__:Processing: https://noclout.fr/products/lavender-knit-copie
+INFO:__main__:Processing: https://noclout.fr/products/chromatic-purple-tee
+INFO:__main__:Processing: https://noclout.fr/products/azur-link-tee
+INFO:__main__:Processing: https://noclout.fr/products/darker-zip
+INFO:__main__:Processing: https://noclout.fr/products/structure-hoodie-1
+INFO:scraper:Scraped: Darker Zip - 94.99EUR
+INFO:__main__:Generating embeddings for: Darker Zip
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Darker Zip
+INFO:__main__:Uploaded: Darker Zip
+INFO:scraper:Scraped: Structure Hoodie - 89.99EUR
+INFO:__main__:Generating embeddings for: Structure Hoodie
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Structure Hoodie
+INFO:__main__:Uploaded: Structure Hoodie
+INFO:scraper:Scraped: Yuzu Knit - 89.99EUR
+INFO:__main__:Generating embeddings for: Yuzu Knit
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Yuzu Knit
+INFO:__main__:Uploaded: Yuzu Knit
+INFO:scraper:Scraped: Chromatic Purple Tee - 44.99EUR
+INFO:__main__:Generating embeddings for: Chromatic Purple Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Chromatic Purple Tee
+INFO:__main__:Uploaded: Chromatic Purple Tee
+INFO:scraper:Scraped: Azur Link Tee - 39.99EUR
+INFO:__main__:Generating embeddings for: Azur Link Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Azur Link Tee
+INFO:__main__:Uploaded: Azur Link Tee
+INFO:__main__:Processing batch 6: products 26-30
+INFO:__main__:Processing: https://noclout.fr/products/heaven-knitted-zip
+INFO:__main__:Processing: https://noclout.fr/products/darker-tee
+INFO:__main__:Processing: https://noclout.fr/products/bloody-link-tee
+INFO:__main__:Processing: https://noclout.fr/products/bleak-raglan-tee-copie
+INFO:__main__:Processing: https://noclout.fr/products/arkham-denim-1
+INFO:scraper:Scraped: Darker Tee V2 - 44.99EUR
+INFO:__main__:Generating embeddings for: Darker Tee V2
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Darker Tee V2
+INFO:__main__:Uploaded: Darker Tee V2
+INFO:scraper:Scraped: Heaven Knitted Zip - 94.99EUR
+INFO:__main__:Generating embeddings for: Heaven Knitted Zip
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Heaven Knitted Zip
+INFO:__main__:Uploaded: Heaven Knitted Zip
+INFO:scraper:Scraped: Bloody Link Tee - 39.99EUR
+INFO:__main__:Generating embeddings for: Bloody Link Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Bloody Link Tee
+INFO:__main__:Uploaded: Bloody Link Tee
+INFO:scraper:Scraped: Arkham Denim - 109.99EUR
+INFO:__main__:Generating embeddings for: Arkham Denim
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Arkham Denim
+INFO:__main__:Uploaded: Arkham Denim
+INFO:scraper:Scraped: Bleak Raglan Tee - 23.99EUR
+INFO:__main__:Generating embeddings for: Bleak Raglan Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Bleak Raglan Tee
+INFO:__main__:Uploaded: Bleak Raglan Tee
+INFO:__main__:Processing batch 7: products 31-35
+INFO:__main__:Processing: https://noclout.fr/products/rossocorsa-zip
+INFO:__main__:Processing: https://noclout.fr/products/kiri-atomic-jersey
+INFO:__main__:Processing: https://noclout.fr/products/ebene-set-training-jacket
+INFO:__main__:Processing: https://noclout.fr/products/cream-knit
+INFO:__main__:Processing: https://noclout.fr/products/ebene-set-tee
+INFO:scraper:Scraped: Cream Knit - 89.99EUR
+INFO:__main__:Generating embeddings for: Cream Knit
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Cream Knit
+INFO:__main__:Uploaded: Cream Knit
+INFO:scraper:Scraped: Brown & Blue Set - Tee - 29.99EUR
+INFO:__main__:Generating embeddings for: Brown & Blue Set - Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Brown & Blue Set - Tee
+INFO:__main__:Uploaded: Brown & Blue Set - Tee
+INFO:scraper:Scraped: Brume Atomic Jersey - 23.99EUR
+INFO:__main__:Generating embeddings for: Brume Atomic Jersey
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Brume Atomic Jersey
+INFO:__main__:Uploaded: Brume Atomic Jersey
+INFO:scraper:Scraped: Brown & Blue Set - Training Jacket - 94.99EUR
+INFO:__main__:Generating embeddings for: Brown & Blue Set - Training Jacket
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Brown & Blue Set - Training Jacket
+INFO:__main__:Uploaded: Brown & Blue Set - Training Jacket
+INFO:scraper:Scraped: Rossocorsa Zip - 84.99EUR
+INFO:__main__:Generating embeddings for: Rossocorsa Zip
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Rossocorsa Zip
+INFO:__main__:Uploaded: Rossocorsa Zip
+INFO:__main__:Processing batch 8: products 36-40
+INFO:__main__:Processing: https://noclout.fr/products/pinky-hoodie-copie
+INFO:__main__:Processing: https://noclout.fr/products/plume-hoodie?variant=56379868447064
+INFO:__main__:Processing: https://noclout.fr/products/azur-link-tee-copie
+INFO:__main__:Processing: https://noclout.fr/products/plume-hoodie?variant=56379868315992
+INFO:__main__:Processing: https://noclout.fr/products/blason-tee
+INFO:scraper:Scraped: Plume Hoodie - 89.99EUR
+INFO:__main__:Generating embeddings for: Plume Hoodie
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Plume Hoodie
+INFO:__main__:Uploaded: Plume Hoodie
+INFO:scraper:Scraped: Pinky Hoodie - 84.99EUR
+INFO:__main__:Generating embeddings for: Pinky Hoodie
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Pinky Hoodie
+INFO:__main__:Uploaded: Pinky Hoodie
+INFO:scraper:Scraped: Plume Hoodie - 89.99EUR
+INFO:__main__:Generating embeddings for: Plume Hoodie
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Plume Hoodie
+INFO:__main__:Uploaded: Plume Hoodie
+INFO:scraper:Scraped: Navy Link Sleeves - 43.99EUR
+INFO:__main__:Generating embeddings for: Navy Link Sleeves
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Navy Link Sleeves
+INFO:__main__:Uploaded: Navy Link Sleeves
+INFO:scraper:Scraped: Blason Tee - 39.99EUR
+INFO:__main__:Generating embeddings for: Blason Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Blason Tee
+INFO:__main__:Uploaded: Blason Tee
+INFO:__main__:Processing batch 9: products 41-45
+INFO:__main__:Processing: https://noclout.fr/products/noir-cart-holder
+INFO:__main__:Processing: https://noclout.fr/products/darker-windbreaker
+INFO:__main__:Processing: https://noclout.fr/products/brazil-swimming-short-v2
+INFO:__main__:Processing: https://noclout.fr/products/shade-denim?variant=56379999912280
+INFO:__main__:Processing: https://noclout.fr/products/plume-hoodie
+INFO:scraper:Scraped: Brazil Swim Short V2 - 34.99EUR
+INFO:__main__:Generating embeddings for: Brazil Swim Short V2
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Brazil Swim Short V2
+INFO:__main__:Uploaded: Brazil Swim Short V2
+INFO:scraper:Scraped: Plume Hoodie - 89.99EUR
+INFO:__main__:Generating embeddings for: Plume Hoodie
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Plume Hoodie
+INFO:__main__:Uploaded: Plume Hoodie
+INFO:scraper:Scraped: Darker Windbreaker - 98.99EUR
+INFO:__main__:Generating embeddings for: Darker Windbreaker
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Darker Windbreaker
+INFO:__main__:Uploaded: Darker Windbreaker
+INFO:scraper:Scraped: Shade Denim - 109.99EUR
+INFO:__main__:Generating embeddings for: Shade Denim
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Shade Denim
+INFO:__main__:Uploaded: Shade Denim
+INFO:scraper:Scraped: Noir Card Holder - 44.99EUR
+INFO:__main__:Generating embeddings for: Noir Card Holder
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Noir Card Holder
+INFO:__main__:Uploaded: Noir Card Holder
+INFO:__main__:Processing batch 10: products 46-50
+INFO:__main__:Processing: https://noclout.fr/products/gift-card
+INFO:__main__:Processing: https://noclout.fr/products/bloody-hoodie
+INFO:__main__:Processing: https://noclout.fr/products/graphite-rainjacket-1
+INFO:__main__:Processing: https://noclout.fr/products/bright-wash-denim
+INFO:__main__:Processing: https://noclout.fr/products/pure-white-waffle
+INFO:scraper:Scraped: Gift Card - 25.00EUR
+INFO:__main__:Generating embeddings for: Gift Card
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Gift Card
+INFO:__main__:Uploaded: Gift Card
+INFO:scraper:Scraped: Bloody Hoodie - 84.99EUR
+INFO:__main__:Generating embeddings for: Bloody Hoodie
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 409 Conflict"
+ERROR:supabase_client:Error upserting product: {'message': 'duplicate key value violates unique constraint "products_source_product_url_key"', 'code': '23505', 'hint': None, 'details': 'Key (source, product_url)=(scraper-noclout, https://noclout.fr/products/bloody-hoodie) already exists.'}
+ERROR:__main__:Error uploading to DB: {'message': 'duplicate key value violates unique constraint "products_source_product_url_key"', 'code': '23505', 'hint': None, 'details': 'Key (source, product_url)=(scraper-noclout, https://noclout.fr/products/bloody-hoodie) already exists.'}
+INFO:scraper:Scraped: Pure White Waffle - 49.99EUR
+INFO:__main__:Generating embeddings for: Pure White Waffle
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Pure White Waffle
+INFO:__main__:Uploaded: Pure White Waffle
+INFO:scraper:Scraped: Bright Wash Denim - 89.99EUR
+INFO:__main__:Generating embeddings for: Bright Wash Denim
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Bright Wash Denim
+INFO:__main__:Uploaded: Bright Wash Denim
+INFO:scraper:Scraped: Graphite Rainjacket - 94.99EUR
+INFO:__main__:Generating embeddings for: Graphite Rainjacket
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Graphite Rainjacket
+INFO:__main__:Uploaded: Graphite Rainjacket
+INFO:__main__:Processing batch 11: products 51-55
+INFO:__main__:Processing: https://noclout.fr/products/pure-white-tee
+INFO:__main__:Processing: https://noclout.fr/products/chromatic-green-tee
+INFO:__main__:Processing: https://noclout.fr/products/plume-tracksuits
+INFO:__main__:Processing: https://noclout.fr/products/flamingo-tee
+INFO:__main__:Processing: https://noclout.fr/products/polar-link-jort
+INFO:scraper:Scraped: Plume Tracksuits - 84.99EUR
+INFO:__main__:Generating embeddings for: Plume Tracksuits
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Plume Tracksuits
+INFO:__main__:Uploaded: Plume Tracksuits
+INFO:scraper:Scraped: Chromatic Green Tee - 44.99EUR
+INFO:__main__:Generating embeddings for: Chromatic Green Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Chromatic Green Tee
+INFO:__main__:Uploaded: Chromatic Green Tee
+INFO:scraper:Scraped: Darker Link Jort - 69.99EUR
+INFO:__main__:Generating embeddings for: Darker Link Jort
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Darker Link Jort
+INFO:__main__:Uploaded: Darker Link Jort
+INFO:scraper:Scraped: Flamingo Tee - 35.99EUR
+INFO:__main__:Generating embeddings for: Flamingo Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Flamingo Tee
+INFO:__main__:Uploaded: Flamingo Tee
+INFO:scraper:Scraped: Pure White Tee - 44.99EUR
+INFO:__main__:Generating embeddings for: Pure White Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Pure White Tee
+INFO:__main__:Uploaded: Pure White Tee
+INFO:__main__:Processing batch 12: products 56-60
+INFO:__main__:Processing: https://noclout.fr/products/chromatic-blue-tee-1
+INFO:__main__:Processing: https://noclout.fr/products/arc-selvege-denim
+INFO:__main__:Processing: https://noclout.fr/products/touareg-tee
+INFO:__main__:Processing: https://noclout.fr/products/blue-knit
+INFO:__main__:Processing: https://noclout.fr/products/yuzu-link-jort
+INFO:scraper:Scraped: Pelago Knit - 89.99EUR
+INFO:__main__:Generating embeddings for: Pelago Knit
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Pelago Knit
+INFO:__main__:Uploaded: Pelago Knit
+INFO:scraper:Scraped: Yuzu Link Jort - 69.99EUR
+INFO:__main__:Generating embeddings for: Yuzu Link Jort
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Yuzu Link Jort
+INFO:__main__:Uploaded: Yuzu Link Jort
+INFO:scraper:Scraped: Touareg Tee - 41.99EUR
+INFO:__main__:Generating embeddings for: Touareg Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Touareg Tee
+INFO:__main__:Uploaded: Touareg Tee
+INFO:scraper:Scraped: Arc Selvedge Denim - 119.99EUR
+INFO:__main__:Generating embeddings for: Arc Selvedge Denim
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Arc Selvedge Denim
+INFO:__main__:Uploaded: Arc Selvedge Denim
+INFO:scraper:Scraped: Chromatic Blue Tee - 44.99EUR
+INFO:__main__:Generating embeddings for: Chromatic Blue Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Chromatic Blue Tee
+INFO:__main__:Uploaded: Chromatic Blue Tee
+INFO:__main__:Processing batch 13: products 61-65
+INFO:__main__:Processing: https://noclout.fr/products/racing-jacket-blue
+INFO:__main__:Processing: https://noclout.fr/products/pinky-swimming-short
+INFO:__main__:Processing: https://noclout.fr/products/brume-atomic-jersey-copy
+INFO:__main__:Processing: https://noclout.fr/products/bleak-zip
+INFO:__main__:Processing: https://noclout.fr/products/deepsea-tee
+INFO:scraper:Scraped: Pinky Swim Short - 34.99EUR
+INFO:__main__:Generating embeddings for: Pinky Swim Short
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Pinky Swim Short
+INFO:__main__:Uploaded: Pinky Swim Short
+INFO:scraper:Scraped: Bleak Zip - 99.99EUR
+INFO:__main__:Generating embeddings for: Bleak Zip
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Bleak Zip
+INFO:__main__:Uploaded: Bleak Zip
+INFO:scraper:Scraped: Darker Jersey - 23.99EUR
+INFO:__main__:Generating embeddings for: Darker Jersey
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 409 Conflict"
+ERROR:supabase_client:Error upserting product: {'message': 'duplicate key value violates unique constraint "products_source_product_url_key"', 'code': '23505', 'hint': None, 'details': 'Key (source, product_url)=(scraper-noclout, https://noclout.fr/products/brume-atomic-jersey-copy) already exists.'}
+ERROR:__main__:Error uploading to DB: {'message': 'duplicate key value violates unique constraint "products_source_product_url_key"', 'code': '23505', 'hint': None, 'details': 'Key (source, product_url)=(scraper-noclout, https://noclout.fr/products/brume-atomic-jersey-copy) already exists.'}
+INFO:scraper:Scraped: Lugia Racing Jacket - 129.99EUR
+INFO:__main__:Generating embeddings for: Lugia Racing Jacket
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Lugia Racing Jacket
+INFO:__main__:Uploaded: Lugia Racing Jacket
+INFO:scraper:Scraped: Deepsea Tee - 44.99EUR
+INFO:__main__:Generating embeddings for: Deepsea Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Deepsea Tee
+INFO:__main__:Uploaded: Deepsea Tee
+INFO:__main__:Processing batch 14: products 66-70
+INFO:__main__:Processing: https://noclout.fr/products/blue-jeans
+INFO:__main__:Processing: https://noclout.fr/products/rawrrr-tee
+INFO:__main__:Processing: https://noclout.fr/products/darker-jean
+INFO:__main__:Processing: https://noclout.fr/products/shade-denim
+INFO:__main__:Processing: https://noclout.fr/products/noir-trucker-hat
+INFO:scraper:Scraped: Noir Trucker Hat - 34.99EUR
+INFO:__main__:Generating embeddings for: Noir Trucker Hat
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Noir Trucker Hat
+INFO:__main__:Uploaded: Noir Trucker Hat
+INFO:scraper:Scraped: Rawrrr Tee - 39.99EUR
+INFO:__main__:Generating embeddings for: Rawrrr Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Rawrrr Tee
+INFO:__main__:Uploaded: Rawrrr Tee
+INFO:scraper:Scraped: Blue Fade Jeans - 89.99EUR
+INFO:__main__:Generating embeddings for: Blue Fade Jeans
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Blue Fade Jeans
+INFO:__main__:Uploaded: Blue Fade Jeans
+INFO:scraper:Scraped: Darker Jeans - 89.99EUR
+INFO:__main__:Generating embeddings for: Darker Jeans
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Darker Jeans
+INFO:__main__:Uploaded: Darker Jeans
+INFO:scraper:Scraped: Shade Denim - 109.99EUR
+INFO:__main__:Generating embeddings for: Shade Denim
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Shade Denim
+INFO:__main__:Uploaded: Shade Denim
+INFO:__main__:Processing batch 15: products 71-75
+INFO:__main__:Processing: https://noclout.fr/products/pinky-zip-1
+INFO:__main__:Processing: https://noclout.fr/products/bloody-windbreaker
+INFO:__main__:Processing: https://noclout.fr/products/royal-hoodie
+INFO:__main__:Processing: https://noclout.fr/products/citrus-waffle
+INFO:__main__:Processing: https://noclout.fr/products/foldy-jean
+INFO:scraper:Scraped: Pinky Zip - 94.99EUR
+INFO:__main__:Generating embeddings for: Pinky Zip
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Pinky Zip
+INFO:__main__:Uploaded: Pinky Zip
+INFO:scraper:Scraped: Bloody Windbreaker - 98.99EUR
+INFO:__main__:Generating embeddings for: Bloody Windbreaker
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Bloody Windbreaker
+INFO:__main__:Uploaded: Bloody Windbreaker
+INFO:scraper:Scraped: Citrus Waffle - 39.99EUR
+INFO:__main__:Generating embeddings for: Citrus Waffle
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Citrus Waffle
+INFO:__main__:Uploaded: Citrus Waffle
+INFO:scraper:Scraped: Foldy Jeans - 94.99EUR
+INFO:__main__:Generating embeddings for: Foldy Jeans
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Foldy Jeans
+INFO:__main__:Uploaded: Foldy Jeans
+INFO:scraper:Scraped: Royal Hoodie - 84.99EUR
+INFO:__main__:Generating embeddings for: Royal Hoodie
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Royal Hoodie
+INFO:__main__:Uploaded: Royal Hoodie
+INFO:__main__:Processing batch 16: products 76-80
+INFO:__main__:Processing: https://noclout.fr/products/chromatic-pink-tee
+INFO:__main__:Processing: https://noclout.fr/products/bzzzzz-tee
+INFO:__main__:Processing: https://noclout.fr/products/vantablack-tee
+INFO:__main__:Processing: https://noclout.fr/products/alpine-tee
+INFO:__main__:Processing: https://noclout.fr/products/darkforest-tee
+INFO:scraper:Scraped: Alpine Tee - 39.99EUR
+INFO:__main__:Generating embeddings for: Alpine Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Alpine Tee
+INFO:__main__:Uploaded: Alpine Tee
+INFO:scraper:Scraped: Vantablack Tee - 41.99EUR
+INFO:__main__:Generating embeddings for: Vantablack Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Vantablack Tee
+INFO:__main__:Uploaded: Vantablack Tee
+INFO:scraper:Scraped: Chromatic Pink Tee - 44.99EUR
+INFO:__main__:Generating embeddings for: Chromatic Pink Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Chromatic Pink Tee
+INFO:__main__:Uploaded: Chromatic Pink Tee
+INFO:scraper:Scraped: Darkforest Tee - 41.99EUR
+INFO:__main__:Generating embeddings for: Darkforest Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Darkforest Tee
+INFO:__main__:Uploaded: Darkforest Tee
+INFO:scraper:Scraped: Bzzzzz Tee - 39.99EUR
+INFO:__main__:Generating embeddings for: Bzzzzz Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Bzzzzz Tee
+INFO:__main__:Uploaded: Bzzzzz Tee
+INFO:__main__:Processing batch 17: products 81-85
+INFO:__main__:Processing: https://noclout.fr/products/orange-knit
+INFO:__main__:Processing: https://noclout.fr/products/passion-raglan-tee
+INFO:__main__:Processing: https://noclout.fr/products/chromatic-yellow-tee
+INFO:__main__:Processing: https://noclout.fr/products/glacial-mint-tee
+INFO:__main__:Processing: https://noclout.fr/products/passion-zip
+INFO:scraper:Scraped: Passion Raglan Tee - 23.99EUR
+INFO:__main__:Generating embeddings for: Passion Raglan Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Passion Raglan Tee
+INFO:__main__:Uploaded: Passion Raglan Tee
+INFO:scraper:Scraped: Passion Zip - 99.99EUR
+INFO:__main__:Generating embeddings for: Passion Zip
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Passion Zip
+INFO:__main__:Uploaded: Passion Zip
+INFO:scraper:Scraped: Chromatic Yellow Tee - 44.99EUR
+INFO:__main__:Generating embeddings for: Chromatic Yellow Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Chromatic Yellow Tee
+INFO:__main__:Uploaded: Chromatic Yellow Tee
+INFO:scraper:Scraped: Mars Knit - 89.99EUR
+INFO:__main__:Generating embeddings for: Mars Knit
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Mars Knit
+INFO:__main__:Uploaded: Mars Knit
+INFO:scraper:Scraped: Glacial Mint Tee - 35.99EUR
+INFO:__main__:Generating embeddings for: Glacial Mint Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Glacial Mint Tee
+INFO:__main__:Uploaded: Glacial Mint Tee
+INFO:__main__:Processing batch 18: products 86-90
+INFO:__main__:Processing: https://noclout.fr/products/candy-link-tee
+INFO:__main__:Processing: https://noclout.fr/products/aoki-caps
+INFO:__main__:Processing: https://noclout.fr/products/air-love
+INFO:__main__:Processing: https://noclout.fr/products/shade-denim?variant=56380983738712
+INFO:__main__:Processing: https://noclout.fr/products/darker-hoodie-bf
+INFO:scraper:Scraped: Shade Denim - 109.99EUR
+INFO:__main__:Generating embeddings for: Shade Denim
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Shade Denim
+INFO:__main__:Uploaded: Shade Denim
+INFO:scraper:Scraped: Candy Link Tee - 39.99EUR
+INFO:__main__:Generating embeddings for: Candy Link Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Candy Link Tee
+INFO:__main__:Uploaded: Candy Link Tee
+INFO:scraper:Scraped: Aoki Caps - 34.99EUR
+INFO:__main__:Generating embeddings for: Aoki Caps
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Aoki Caps
+INFO:__main__:Uploaded: Aoki Caps
+INFO:scraper:Scraped: Air Love - 129.90EUR
+INFO:__main__:Generating embeddings for: Air Love
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Air Love
+INFO:__main__:Uploaded: Air Love
+INFO:scraper:Scraped: Darker Hoodie - 84.99EUR
+INFO:__main__:Generating embeddings for: Darker Hoodie
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Darker Hoodie
+INFO:__main__:Uploaded: Darker Hoodie
+INFO:__main__:Processing batch 19: products 91-95
+INFO:__main__:Processing: https://noclout.fr/products/noir-belt
+INFO:__main__:Processing: https://noclout.fr/products/dark-link-tee
+INFO:__main__:Processing: https://noclout.fr/products/quartz-rainjacket
+INFO:__main__:Processing: https://noclout.fr/products/raw-link-jort
+INFO:__main__:Processing: https://noclout.fr/products/lava-swimming-short-v2
+INFO:scraper:Scraped: Noir Belt - 59.99EUR
+INFO:__main__:Generating embeddings for: Noir Belt
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Noir Belt
+INFO:__main__:Uploaded: Noir Belt
+INFO:scraper:Scraped: Dark Link Tee - 39.99EUR
+INFO:__main__:Generating embeddings for: Dark Link Tee
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Dark Link Tee
+INFO:__main__:Uploaded: Dark Link Tee
+INFO:scraper:Scraped: Quartz Rainjacket - 94.99EUR
+INFO:__main__:Generating embeddings for: Quartz Rainjacket
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Quartz Rainjacket
+INFO:__main__:Uploaded: Quartz Rainjacket
+INFO:scraper:Scraped: Raw Blue Link Jorts - 69.99EUR
+INFO:__main__:Generating embeddings for: Raw Blue Link Jorts
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Raw Blue Link Jorts
+INFO:__main__:Uploaded: Raw Blue Link Jorts
+INFO:scraper:Scraped: Lava Swim Short V2 - 34.99EUR
+INFO:__main__:Generating embeddings for: Lava Swim Short V2
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Lava Swim Short V2
+INFO:__main__:Uploaded: Lava Swim Short V2
+INFO:__main__:Processing batch 20: products 96-100
+INFO:__main__:Processing: https://noclout.fr/products/akai-caps
+INFO:__main__:Processing: https://noclout.fr/products/racing-jacket-black
+INFO:__main__:Processing: https://noclout.fr/products/blue-zip
+INFO:__main__:Processing: https://noclout.fr/products/blossom-knitted-zip
+INFO:__main__:Processing: https://noclout.fr/products/ultra-violet-swimming-short-v2
+INFO:scraper:Scraped: Blossom Knitted Zip - 94.99EUR
+INFO:__main__:Generating embeddings for: Blossom Knitted Zip
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Blossom Knitted Zip
+INFO:__main__:Uploaded: Blossom Knitted Zip
+INFO:scraper:Scraped: Akaï Caps - 34.99EUR
+INFO:__main__:Generating embeddings for: Akaï Caps
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Akaï Caps
+INFO:__main__:Uploaded: Akaï Caps
+INFO:scraper:Scraped: Ultra Violet Swim Short V2 - 34.99EUR
+INFO:__main__:Generating embeddings for: Ultra Violet Swim Short V2
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Ultra Violet Swim Short V2
+INFO:__main__:Uploaded: Ultra Violet Swim Short V2
+INFO:scraper:Scraped: Vantablack Racing Jacket - 129.99EUR
+INFO:__main__:Generating embeddings for: Vantablack Racing Jacket
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Vantablack Racing Jacket
+INFO:__main__:Uploaded: Vantablack Racing Jacket
+INFO:scraper:Scraped: OG Zip - 94.99EUR
+INFO:__main__:Generating embeddings for: OG Zip
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: OG Zip
+INFO:__main__:Uploaded: OG Zip
+INFO:__main__:Processing batch 21: products 101-101
+INFO:__main__:Processing: https://noclout.fr/products/yellow-jeans
+INFO:scraper:Scraped: Yellow Fade Jeans - 89.99EUR
+INFO:__main__:Generating embeddings for: Yellow Fade Jeans
+INFO:httpx:HTTP Request: POST https://yqawmzggcgpeyaaynrjk.supabase.co/rest/v1/products?on_conflict=id "HTTP/2 200 OK"
+INFO:supabase_client:Upserted product: Yellow Fade Jeans
+INFO:__main__:Uploaded: Yellow Fade Jeans
+INFO:__main__:==================================================
+INFO:__main__:Scraping Complete!
+INFO:__main__:Total products found: 101
+INFO:__main__:Scraped: 101
+INFO:__main__:Embedded: 101
+INFO:__main__:Uploaded: 99
+INFO:__main__:Errors: 2
+INFO:__main__:==================================================
+2026-04-10 21:43:57 - Scraper completed successfully

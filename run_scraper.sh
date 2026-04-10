@@ -1,16 +1,22 @@
 #!/bin/bash
 # Noclout Scraper Runner
-# Run from project directory
+# Location: /Users/adrianpawlas/Finds/Scrapers/scraper-noclout/run_scraper.sh
 
 cd "$(dirname "$0")"
 
-# Load virtual environment if exists
-if [ -f "venv/bin/activate" ]; then
-    source venv/bin/activate
-fi
+# Set environment variables
+export SUPABASE_URL="https://yqawmzggcgpeyaaynrjk.supabase.co"
+export SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxYXdtemdnY2dwZXlhYXlucmprIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NTAxMDkyNiwiZXhwIjoyMDcwNTg2OTI2fQ.XtLpxausFriraFJeX27ZzsdQsFv3uQKXBBggoz6P4D4"
 
 # Run the scraper
-python3 main.py
+echo "$(date '+%Y-%m-%d %H:%M:%S') - Starting scraper..." >> scraper.log
+python3 main.py >> scraper.log 2>&1
+EXIT_CODE=$?
 
-# Log output with timestamp
-echo "$(date): Scraper completed" >> scraper.log
+if [ $EXIT_CODE -eq 0 ]; then
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Scraper completed successfully" >> scraper.log
+else
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Scraper failed with exit code $EXIT_CODE" >> scraper_error.log
+fi
+
+exit $EXIT_CODE

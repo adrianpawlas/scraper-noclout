@@ -222,12 +222,50 @@ async def scrape_product(handle: str) -> Optional[dict]:
 
 
 async def get_all_product_urls() -> List[str]:
-    async with CollectionScraper(headless=True) as scraper:
-        urls = await scraper.scroll_and_collect_products(
-            "https://noclout.fr/collections/tous-les-articles",
-            max_scrolls=50
-        )
-        return urls
+    import ssl
+    ssl_context = ssl.create_default_context()
+    ssl_context.check_hostname = False
+    ssl_context.verify_mode = ssl.CERT_NONE
+    connector = aiohttp.TCPConnector(ssl=ssl_context)
+    
+    async with aiohttp.ClientSession(connector=connector) as session:
+        urls = set()
+        page = 1
+        while page <= 20:  # Max 20 pages
+            try:
+                url = "https://noclout.fr/collections/tous-les-articles"
+                async with session.get(url, params={"page": page}, timeout=aiohttp.ClientTimeout(total=30)) as response:
+                    if response.status != 200:
+                        break
+                    
+                    from bs4 import BeautifulSoup
+                    html = await response.text()
+                    soup = BeautifulSoup(html, 'html.parser')
+                    
+                    links = soup.find_all('a', href=True)
+                    found_on_page = 0
+                    for link in links:
+                        href = link['href']
+                        if '/products/' in href:
+                            if not href.startswith('http'):
+                                href = f"https://noclout.fr{href}"
+                            # Remove query params
+                            href = href.split('?')[0]
+                            if href not in urls:
+                                urls.add(href)
+                                found_on_page += 1
+                    
+                    if found_on_page == 0:
+                        break
+                    logger.info(f"Page {page}: found {found_on_page} products (total: {len(urls)})")
+                    page += 1
+            except Exception as e:
+                logger.error(f"Error fetching collection page {page}: {e}")
+                break
+        
+        result = list(urls)
+        logger.info(f"Found {len(result)} unique product URLs")
+        return result
 
 
 async def scrape_product_details(url: str) -> dict:
