@@ -4,8 +4,9 @@ import json
 import logging
 import os
 import re
+import time
 from datetime import datetime
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Set
 import aiohttp
 
 from scraper import get_all_product_urls, scrape_product_details
@@ -20,16 +21,20 @@ logger = logging.getLogger(__name__)
 
 
 class NocloutScraperOrchestrator:
-    def __init__(self):
+    def __init__(self, batch_size: int = 50):
         self.embedding_service: Optional[EmbeddingService] = None
         self.supabase_client: Optional[SupabaseClient] = None
+        self.batch_size = batch_size
         self.stats = {
-            "total_products": 0,
-            "scraped": 0,
-            "embedded": 0,
-            "uploaded": 0,
+            "new_products": 0,
+            "products_updated": 0,
+            "products_unchanged": 0,
+            "products_deleted": 0,
             "errors": 0
         }
+        self.seen_product_urls: Set[str] = set()
+        self.previous_product_urls: Set[str] = set()
+        self.existing_products: Dict[str, dict] = {}
 
     def _init_services(self):
         if not self.embedding_service:
@@ -39,6 +44,19 @@ class NocloutScraperOrchestrator:
         if not self.supabase_client:
             logger.info("Initializing Supabase client...")
             self.supabase_client = SupabaseClient()
+            self._load_previous_products()
+
+    def _load_previous_products(self):
+        logger.info("Loading existing products from database...")
+        result = self.supabase_client.client.table("products").select(
+            "product_url, title, price, sale, image_url, additional_images, metadata"
+        ).eq("source", "scraper-noclout").execute()
+        
+        for p in result.data:
+            self.previous_product_urls.add(p["product_url"])
+            self.existing_products[p["product_url"]] = p
+        
+        logger.info(f"Loaded {len(self.existing_products)} existing products")
 
     def _generate_product_id(self, url: str) -> str:
         handle = url.split('/products/')[-1].split('?')[0]
@@ -66,8 +84,34 @@ class NocloutScraperOrchestrator:
         
         return price_text
 
-    def _build_product_for_db(self, product_data: Dict) -> Dict:
-        product_id = self._generate_product_id(product_data.get("product_url", ""))
+    def _check_product_changed(self, scraped: dict, existing: dict) -> bool:
+        if not existing:
+            return True
+        
+        if scraped.get("title") != existing.get("title"):
+            return True
+        if scraped.get("price") != existing.get("price"):
+            return True
+        if scraped.get("sale") != existing.get("sale"):
+            return True
+        if scraped.get("image_url") != existing.get("image_url"):
+            return True
+        if scraped.get("additional_images") != existing.get("additional_images"):
+            return True
+        
+        scraped_meta = json.loads(scraped.get("metadata", "{}")) if scraped.get("metadata") else {}
+        existing_meta = existing.get("metadata")
+        if isinstance(existing_meta, str):
+            existing_meta = json.loads(existing_meta)
+        
+        if scraped_meta.get("description") != existing_meta.get("description"):
+            return True
+        
+        return False
+
+    def _build_product_for_db(self, product_data: Dict, regenerate_embeddings: bool = False) -> Dict:
+        product_url = product_data.get("product_url", "")
+        product_id = self._generate_product_id(product_url)
         
         title = product_data.get("title", "")
         price = self._format_price(product_data.get("price", ""))
@@ -83,7 +127,7 @@ class NocloutScraperOrchestrator:
             "size": product_data.get("size", ""),
             "country": None,
             "brand": "Noclout",
-            "source_url": product_data.get("product_url", "")
+            "source_url": product_url
         }
         
         if product_data.get("metadata"):
@@ -92,9 +136,9 @@ class NocloutScraperOrchestrator:
         db_product = {
             "id": product_id,
             "source": "scraper-noclout",
+            "product_url": product_url,
             "brand": "Noclout",
-            "product_url": product_data.get("product_url", ""),
-            "affiliate_url": product_data.get("affiliate_url", ""),
+            "affiliate_url": product_data.get("affiliate_url", "https://noclout.fr/THEFINDSAPP"),
             "image_url": product_data.get("image_url", ""),
             "title": title,
             "description": product_data.get("description", ""),
@@ -106,9 +150,12 @@ class NocloutScraperOrchestrator:
             "metadata": json.dumps(metadata),
             "price": price,
             "sale": sale if sale != price else "",
-            "additional_images": product_data.get("additional_images", ""),
-            "created_at": datetime.utcnow().isoformat()
+            "additional_images": product_data.get("additional_images", "")
         }
+        
+        if regenerate_embeddings:
+            db_product["image_embedding"] = [0.0] * 768
+            db_product["info_embedding"] = [0.0] * 768
         
         return db_product
 
@@ -132,44 +179,62 @@ class NocloutScraperOrchestrator:
                 text_parts.append(product_data["description"])
             if product_data.get("category"):
                 text_parts.append(product_data["category"])
-            if product_data.get("gender"):
-                text_parts.append(product_data["gender"])
             if product_data.get("price"):
                 text_parts.append(product_data["price"])
             if product_data.get("size"):
                 text_parts.append(product_data["size"])
             
             combined_text = " ".join(text_parts)
+            await asyncio.sleep(0.5)  # Stagger API calls
             return self.embedding_service.get_text_embedding(combined_text)
         except Exception as e:
             logger.error(f"Error getting info embedding: {e}")
             return [0.0] * 768
+
+    def _insert_batch_with_retry(self, products: List[dict], max_retries: int = 3) -> tuple:
+        for attempt in range(max_retries):
+            try:
+                result = self.supabase_client.insert_products_batch(products)
+                return len(products), 0
+            except Exception as e:
+                logger.warning(f"Batch insert attempt {attempt + 1} failed: {e}")
+                if attempt == max_retries - 1:
+                    failed_log = f"Failed products: {[p.get('product_url', p.get('id')) for p in products]}\nError: {e}\n"
+                    with open("failed_products.log", "a") as f:
+                        f.write(f"{datetime.now().isoformat()} - {failed_log}")
+                    return 0, len(products)
+                time.sleep(1)
+        return 0, len(products)
 
     async def process_single_product(self, url: str) -> Optional[Dict]:
         try:
             logger.info(f"Processing: {url}")
             
             product_data = await scrape_product_details(url)
-            self.stats["scraped"] += 1
+            self.seen_product_urls.add(url)
             
-            db_product = self._build_product_for_db(product_data)
+            existing = self.existing_products.get(url)
+            is_new = existing is None
+            has_changed = self._check_product_changed(product_data, existing)
             
-            logger.info(f"Generating embeddings for: {db_product['title']}")
-            image_embedding = await self._get_image_embedding(db_product["image_url"])
-            db_product["image_embedding"] = image_embedding
+            if is_new:
+                self.stats["new_products"] += 1
+                regenerate_embeddings = True
+            elif has_changed:
+                self.stats["products_updated"] += 1
+                existing_image = existing.get("image_url", "") if existing else ""
+                regenerate_embeddings = product_data.get("image_url") != existing_image
+            else:
+                self.stats["products_unchanged"] += 1
+                return None
             
-            info_embedding = await self._get_info_embedding(product_data)
-            db_product["info_embedding"] = info_embedding
+            db_product = self._build_product_for_db(product_data, regenerate_embeddings=regenerate_embeddings)
             
-            self.stats["embedded"] += 1
-            
-            try:
-                self.supabase_client.insert_product(db_product)
-                self.stats["uploaded"] += 1
-                logger.info(f"Uploaded: {db_product['title']}")
-            except Exception as e:
-                logger.error(f"Error uploading to DB: {e}")
-                self.stats["errors"] += 1
+            if regenerate_embeddings:
+                logger.info(f"Regenerating embeddings for: {db_product['title']}")
+                db_product["image_embedding"] = await self._get_image_embedding(db_product["image_url"])
+                await asyncio.sleep(0.5)
+                db_product["info_embedding"] = await self._get_info_embedding(product_data)
             
             return db_product
             
@@ -178,7 +243,8 @@ class NocloutScraperOrchestrator:
             self.stats["errors"] += 1
             return None
 
-    async def run_full_scrape(self, batch_size: int = 10):
+    async def run_full_scrape(self, batch_size: int = 50):
+        self.batch_size = batch_size
         logger.info("=" * 50)
         logger.info("Starting Noclout Scraper")
         logger.info("=" * 50)
@@ -187,37 +253,61 @@ class NocloutScraperOrchestrator:
         
         logger.info("Step 1: Collecting all product URLs...")
         product_urls = await get_all_product_urls()
-        self.stats["total_products"] = len(product_urls)
         logger.info(f"Found {len(product_urls)} product URLs")
         
         logger.info(f"Step 2: Processing products in batches of {batch_size}...")
         
-        for i in range(0, len(product_urls), batch_size):
-            batch = product_urls[i:i + batch_size]
-            logger.info(f"Processing batch {i // batch_size + 1}: products {i+1}-{min(i+batch_size, len(product_urls))}")
+        batch = []
+        for url in product_urls:
+            product = await self.process_single_product(url)
+            if product:
+                batch.append(product)
             
-            tasks = [self.process_single_product(url) for url in batch]
-            results = await asyncio.gather(*tasks, return_exceptions=True)
+            if len(batch) >= batch_size:
+                inserted, failed = self._insert_batch_with_retry(batch)
+                batch = []
+                await asyncio.sleep(1)
+        
+        if batch:
+            inserted, failed = self._insert_batch_with_retry(batch)
+        
+        logger.info("Step 3: Cleaning up stale products...")
+        stale_products = self.previous_product_urls - self.seen_product_urls
+        
+        if stale_products:
+            logger.info(f"Found {len(stale_products)} stale products from previous run")
             
-            for result in results:
-                if isinstance(result, Exception):
-                    logger.error(f"Batch error: {result}")
+            result = self.supabase_client.client.table("products").select(
+                "id, product_url"
+            ).eq("source", "scraper-noclout").execute()
             
-            await asyncio.sleep(1)
+            all_current_urls = set(p["product_url"] for p in result.data)
+            
+            truly_stale = self.previous_product_urls - all_current_urls
+            
+            if truly_stale:
+                logger.info(f"Deleting {len(truly_stale)} stale products...")
+                for url in list(truly_stale):
+                    product_id = self._generate_product_id(url)
+                    try:
+                        self.supabase_client.client.table("products").delete().eq("id", product_id).execute()
+                        self.stats["products_deleted"] += 1
+                    except Exception as e:
+                        logger.error(f"Error deleting {product_id}: {e}")
         
         logger.info("=" * 50)
         logger.info("Scraping Complete!")
-        logger.info(f"Total products found: {self.stats['total_products']}")
-        logger.info(f"Scraped: {self.stats['scraped']}")
-        logger.info(f"Embedded: {self.stats['embedded']}")
-        logger.info(f"Uploaded: {self.stats['uploaded']}")
+        logger.info(f"New products added: {self.stats['new_products']}")
+        logger.info(f"Products updated: {self.stats['products_updated']}")
+        logger.info(f"Products unchanged (skipped): {self.stats['products_unchanged']}")
+        logger.info(f"Stale products deleted: {self.stats['products_deleted']}")
         logger.info(f"Errors: {self.stats['errors']}")
         logger.info("=" * 50)
 
 
 async def main():
-    orchestrator = NocloutScraperOrchestrator()
-    await orchestrator.run_full_scrape(batch_size=5)
+    orchestrator = NocloutScraperOrchestrator(batch_size=50)
+    await orchestrator.run_full_scrape(batch_size=50)
 
 
 if __name__ == "__main__":

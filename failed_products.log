@@ -1,0 +1,6 @@
+2026-04-10T22:11:42.598972 - Failed products: ['https://noclout.fr/products/bloody-hoodie']
+Error: {'message': "Could not find the 'updated_at' column of 'products' in the schema cache", 'code': 'PGRST204', 'hint': None, 'details': None}
+2026-04-10T22:12:27.468434 - Failed products: ['https://noclout.fr/products/bloody-hoodie']
+Error: {'message': 'duplicate key value violates unique constraint "products_source_product_url_key"', 'code': '23505', 'hint': None, 'details': 'Key (source, product_url)=(scraper-noclout, https://noclout.fr/products/bloody-hoodie) already exists.'}
+2026-04-10T22:13:16.957226 - Failed products: ['https://noclout.fr/products/bloody-hoodie']
+Error: {'message': 'null value in column "id" of relation "products" violates not-null constraint', 'code': '23502', 'hint': None, 'details': 'Failing row contains (null, scraper-noclout, https://noclout.fr/products/bloody-hoodie, https://noclout.fr/THEFINDSAPP, https://cdn.shopify.com/s/files/1/0654/3828/6065/files/Bloody_Ho..., Noclout, Bloody Hoodie, Colors: white, red 350 gsm 80% cotton, 20% polyester 2 logos (em..., Clothing, null, null, 2026-04-10 20:13:13.404037+00, {"name": "Bloody Hoodie", "description": "Colors: white, red 350..., XS, f, null, null, null, null, null, null, null, null, null, 84.99EUR, , https://cdn.shopify.com/s/files/1/0654/3828/6065/files/Bllody_Ho..., null).'}
