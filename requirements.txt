@@ -1,0 +1,8 @@
+playwright
+python-dotenv
+supabase
+torch
+transformers
+pillow
+aiohttp
+asyncio
