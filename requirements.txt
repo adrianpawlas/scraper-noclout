@@ -6,3 +6,5 @@ transformers
 pillow
 aiohttp
 asyncio
+sentencepiece
+protobuf
