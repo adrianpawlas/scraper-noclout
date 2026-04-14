@@ -1,8 +1,10 @@
-name: Daily Noclout Scraper
+name: Noclout Scraper
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Daily at midnight UTC
+    - cron: '0 6 * * 2'   # Tuesday at 6:00am UTC
+    - cron: '0 6 * * 5'   # Friday at 6:00am UTC
+    - cron: '0 6 * * 0'   # Sunday at 6:00am UTC
   workflow_dispatch:  # Manual trigger from GitHub UI
 
 jobs:
