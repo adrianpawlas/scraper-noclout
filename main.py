@@ -12,7 +12,6 @@ import aiohttp
 from scraper import get_all_product_urls, scrape_product_details
 from embeddings import EmbeddingService
 from supabase_client import SupabaseClient
-from image_compressor import ImageCompressor
 
 logging.basicConfig(
     level=logging.INFO,
@@ -25,14 +24,12 @@ class NocloutScraperOrchestrator:
     def __init__(self, batch_size: int = 50):
         self.embedding_service: Optional[EmbeddingService] = None
         self.supabase_client: Optional[SupabaseClient] = None
-        self.image_compressor: Optional[ImageCompressor] = None
         self.batch_size = batch_size
         self.stats = {
             "new_products": 0,
             "products_updated": 0,
             "products_unchanged": 0,
             "products_deleted": 0,
-            "images_compressed": 0,
             "errors": 0
         }
         self.seen_product_urls: Set[str] = set()
@@ -43,10 +40,6 @@ class NocloutScraperOrchestrator:
         if not self.embedding_service:
             logger.info("Initializing embedding service...")
             self.embedding_service = EmbeddingService()
-        
-        if not self.image_compressor:
-            logger.info("Initializing image compressor...")
-            self.image_compressor = ImageCompressor(quality=85)
         
         if not self.supabase_client:
             logger.info("Initializing Supabase client...")
@@ -164,8 +157,6 @@ class NocloutScraperOrchestrator:
             db_product["image_embedding"] = [0.0] * 768
             db_product["info_embedding"] = [0.0] * 768
         
-        db_product["compressed_image_url"] = ""
-        
         return db_product
 
     async def _get_image_embedding(self, image_url: str) -> List[float]:
@@ -244,14 +235,6 @@ class NocloutScraperOrchestrator:
                 db_product["image_embedding"] = await self._get_image_embedding(db_product["image_url"])
                 await asyncio.sleep(0.5)
                 db_product["info_embedding"] = await self._get_info_embedding(product_data)
-                
-                # Compress image
-                logger.info(f"Compressing image for: {db_product['title']}")
-                compressed_url = self.image_compressor.compress_image(db_product["image_url"])
-                if compressed_url:
-                    db_product["compressed_image_url"] = compressed_url
-                    self.stats["images_compressed"] += 1
-                await asyncio.sleep(0.5)
             
             return db_product
             
@@ -317,7 +300,6 @@ class NocloutScraperOrchestrator:
         logger.info(f"New products added: {self.stats['new_products']}")
         logger.info(f"Products updated: {self.stats['products_updated']}")
         logger.info(f"Products unchanged (skipped): {self.stats['products_unchanged']}")
-        logger.info(f"Images compressed: {self.stats['images_compressed']}")
         logger.info(f"Stale products deleted: {self.stats['products_deleted']}")
         logger.info(f"Errors: {self.stats['errors']}")
         logger.info("=" * 50)
