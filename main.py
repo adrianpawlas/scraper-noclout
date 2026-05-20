@@ -263,10 +263,12 @@ class NocloutScraperOrchestrator:
             if product:
                 batch.append(product)
             
+            await asyncio.sleep(1.5)
+            
             if len(batch) >= batch_size:
                 inserted, failed = self._insert_batch_with_retry(batch)
                 batch = []
-                await asyncio.sleep(1)
+                await asyncio.sleep(2)
         
         if batch:
             inserted, failed = self._insert_batch_with_retry(batch)

@@ -20,20 +20,29 @@ class ShopifyAPI:
         self._ssl_context.verify_mode = ssl.CERT_NONE
         self._connector = aiohttp.TCPConnector(ssl=self._ssl_context)
     
-    async def fetch_product_json(self, product_handle: str) -> Optional[dict]:
+    async def fetch_product_json(self, product_handle: str, max_retries: int = 5) -> Optional[dict]:
         url = f"{self.api_url}/{product_handle}.json"
-        async with aiohttp.ClientSession(connector=self._connector) as session:
+        for attempt in range(max_retries):
             try:
-                async with session.get(url, timeout=aiohttp.ClientTimeout(total=30)) as response:
-                    if response.status == 200:
-                        data = await response.json()
-                        return data.get('product')
-                    else:
-                        logger.warning(f"Failed to fetch {url}: {response.status}")
-                        return None
+                await asyncio.sleep(1 + attempt * 0.5)
+                async with aiohttp.ClientSession(connector=self._connector) as session:
+                    async with session.get(url, timeout=aiohttp.ClientTimeout(total=30)) as response:
+                        if response.status == 200:
+                            data = await response.json()
+                            return data.get('product')
+                        elif response.status == 403:
+                            wait_time = 2 ** attempt
+                            logger.warning(f"Rate limited on {url}, waiting {wait_time}s (attempt {attempt+1}/{max_retries})")
+                            await asyncio.sleep(wait_time)
+                            continue
+                        else:
+                            logger.warning(f"Failed to fetch {url}: {response.status}")
+                            return None
             except Exception as e:
                 logger.error(f"Error fetching {url}: {e}")
-                return None
+                if attempt < max_retries - 1:
+                    await asyncio.sleep(1)
+        return None
     
     async def __aenter__(self):
         return self
