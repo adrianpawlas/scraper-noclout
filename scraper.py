@@ -157,7 +157,7 @@ async def scrape_product(handle: str) -> Optional[dict]:
         "source": "scraper-noclout",
         "brand": "Noclout",
         "product_url": f"https://noclout.fr/products/{handle}",
-        "affiliate_url": f"https://noclout.fr/products/{handle}?ref=THEFINDSAPP",
+        "affiliate_url": f"https://noclout.fr/thefindsapp/products/{handle}",
         "title": product_json.get('title', ''),
         "description": product_json.get('body_html', ''),
         "category": "",
