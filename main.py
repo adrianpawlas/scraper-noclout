@@ -138,7 +138,7 @@ class NocloutScraperOrchestrator:
             "source": "scraper-noclout",
             "product_url": product_url,
             "brand": "Noclout",
-            "affiliate_url": product_data.get("affiliate_url", "https://noclout.fr/thefindsapp"),
+            "affiliate_url": product_data.get("affiliate_url", "https://noclout.fr/?dt_id=3102802"),
             "image_url": product_data.get("image_url", ""),
             "title": title,
             "description": product_data.get("description", ""),
